@@ -1,6 +1,7 @@
 # BrainConnectivity
 
 - `data` sourced from https://app.box.com/folder/230017266028
+- `subjects.csv` is a csv rename of https://app.box.com/file/1354796800643
 
 ### Directory Structure for `BrainConnectivity/data`
 
