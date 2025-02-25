@@ -85,14 +85,60 @@ def get_connectome(
         float: Connectome as a z by z float
     """
     # Remove any nodes which are 0 in any subject
-    # to_remove = np.where(np.sum(timeseries, axis=0) == 0)[0]
+    to_remove = np.where(np.sum(timeseries, axis=0) == 0)[0]
+    print("Removing: ", to_remove)
     timeseries = np.delete(
         timeseries,
-        [2, 9, 4, 180, 181, 249],
+        [
+            2,
+            3,
+            4,
+            7,
+            8,
+            10,
+            75,
+            77,
+            80,
+            81,
+            114,
+            125,
+            126,
+            134,
+            177,
+            178,
+            179,
+            183,
+            184,
+            193,
+            232,
+            241,
+            242,
+            243,
+            249,
+            260,
+            261,
+            264,
+            268,
+            272,
+            273,
+            274,
+            275,
+            276,
+            279,
+            280,
+            283,
+            288,
+            289,
+            292,
+            293,
+            180,
+            181,
+            9,
+        ],
         axis=1,
     )
-    # to_remove = np.where(np.sum(timeseries, axis=0) == 0)[0]
-    # print(to_remove)
+    to_remove = np.where(np.sum(timeseries, axis=0) == 0)[0]
+    print("Removed: ", to_remove)
     # timeseries = timeseries[:, np.sum(timeseries, axis=0) != 0]
 
     # Normalize each column to have unit Euclidean length
