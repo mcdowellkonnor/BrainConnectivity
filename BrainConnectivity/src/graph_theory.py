@@ -85,44 +85,28 @@ def get_connectome(
         float: Connectome as a z by z float
     """
     # Remove any nodes which are 0 in any subject
-    to_remove = np.where(np.sum(timeseries, axis=0) == 0)[0]
-    print("Removing: ", to_remove)
+    # Based on 2025-03-10 subjects, indices 3 4 8 9 81 180 181 198 249 are blank
+    # and should be removed. In addition, the following nodes are statically
+    # removed spheres: 82 127 184 185 233 250 273 274 277 280 281 284 289 290
+    # 293 294 (index+1).
     timeseries = np.delete(
         timeseries,
         [
-            2,
             3,
             4,
-            7,
             8,
-            10,
-            75,
-            77,
-            80,
+            9,
             81,
-            114,
-            125,
             126,
-            134,
-            177,
-            178,
-            179,
+            180,
+            181,
             183,
             184,
-            193,
+            198,
             232,
-            241,
-            242,
-            243,
             249,
-            260,
-            261,
-            264,
-            268,
             272,
             273,
-            274,
-            275,
             276,
             279,
             280,
@@ -131,14 +115,14 @@ def get_connectome(
             289,
             292,
             293,
-            180,
-            181,
-            9,
         ],
         axis=1,
     )
+
     to_remove = np.where(np.sum(timeseries, axis=0) == 0)[0]
-    print("Removed: ", to_remove)
+    if to_remove:
+        print("NOT REMOVED: ", to_remove)
+
     # timeseries = timeseries[:, np.sum(timeseries, axis=0) != 0]
 
     # Normalize each column to have unit Euclidean length
