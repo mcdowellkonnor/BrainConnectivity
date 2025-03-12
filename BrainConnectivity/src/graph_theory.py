@@ -22,6 +22,9 @@ def append_connectome_data(
 
     raw_data["Connectome"] = None
     for index, row in raw_data.iterrows():
+        print(
+            f"Calculating Connectome for {row["Study"]} Subject {row["Subject_ID"]}..."
+        )
         connectome = get_connectome(row["Data"])
         raw_data.at[index, "Connectome"] = connectome
 
@@ -89,6 +92,7 @@ def get_connectome(
     # and should be removed. In addition, the following nodes are statically
     # removed spheres: 82 127 184 185 233 250 273 274 277 280 281 284 289 290
     # 293 294 (index+1).
+    print("NODES TO REMOVE: ", np.where(np.sum(timeseries, axis=0) == 0)[0])
     timeseries = np.delete(
         timeseries,
         [
