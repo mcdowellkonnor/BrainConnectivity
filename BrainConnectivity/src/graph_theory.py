@@ -92,7 +92,7 @@ def get_connectome(
     # and should be removed. In addition, the following nodes are statically
     # removed spheres: 82 127 184 185 233 250 273 274 277 280 281 284 289 290
     # 293 294 (index+1).
-    print("NODES TO REMOVE: ", np.where(np.sum(timeseries, axis=0) == 0)[0])
+    print("INDEX TO REMOVE: ", np.where(np.sum(timeseries, axis=0) == 0)[0])
     timeseries = np.delete(
         timeseries,
         [
@@ -100,13 +100,13 @@ def get_connectome(
             4,
             8,
             9,
-            81,
-            126,
             180,
             181,
+            198,
+            81,
+            126,
             183,
             184,
-            198,
             232,
             249,
             272,
@@ -124,7 +124,7 @@ def get_connectome(
     )
 
     to_remove = np.where(np.sum(timeseries, axis=0) == 0)[0]
-    if to_remove:
+    if len(to_remove) > 0:
         print("NOT REMOVED: ", to_remove)
 
     # timeseries = timeseries[:, np.sum(timeseries, axis=0) != 0]
