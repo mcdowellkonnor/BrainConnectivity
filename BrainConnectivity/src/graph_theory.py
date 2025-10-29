@@ -76,7 +76,7 @@ def append_gt_data(raw_data: pd.DataFrame, harmonized: bool = True) -> pd.DataFr
 def get_connectome(
     timeseries: np.ndarray, pearson: bool = True, fisher: bool = True
 ) -> float:
-    """Returns the functional connectome based on pearson correlations.
+    """Returns the unit normalized functional connectome based on pearson correlations.
 
     Args:
         pearson (bool, optional): Use Pearson Correlation. Defaults to True.
@@ -148,10 +148,10 @@ def get_connectome(
 
     # Fisher z-projection
     if fisher:
-        r_clipped = np.clip(connectome, -0.999999, 0.999999)
-        connectome = 0.5 * np.log((1 + r_clipped) / (1 - r_clipped))
-
-    # Harmonization
+        connectome = np.multiply(
+            np.subtract(np.arctanh(connectome), np.arctanh(0)),
+            np.sqrt(connectome.shape[0] - 0 - 3),
+        )
 
     return connectome
 
